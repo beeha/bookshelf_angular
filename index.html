@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html ng-app="bookshelf">
+	<head>
+		<title>Bookshelf</title>
+        <link rel="stylesheet" href="index.css">
+
+        <link rel="stylesheet" href="bootstrap/3.3.6/css/bootstrap.min.css">
+	    <script src="jquery/jquery-1.12.2%20(1).js"></script>
+	    <script src="bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	  
+	    <script src="angular/angular.js"></script>
+	    <script src="angular/angular-route.js"></script>
+	    <script src="angular/app.js"></script>
+	</head>
+
+	<body ng-controller="RootController as rootCtrl">
+
+        <div ng-controller="LoginController as loginCtrl" ng-show="rootCtrl.isActive('login')" ng-hide="rootCtrl.isActive('books')">
+            <h3>Login</h3>
+            <form name="loginForm" ng-submit="loginCtrl.authenticate()">
+                <div class="error">{{loginCtrl.error}}</div>
+                <div class="form-group">
+                <label for="exampleInputEmail2">Email</label>
+                <input name="email" type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com" ng-model="loginCtrl.user.email">
+              </div>
+                <div class="form-group">
+                <label for="exampleInputPassword2">Password</label>
+                <input name="password" type="password" class="form-control" id="exampleInputPassword2"  ng-model="loginCtrl.user.password">
+              </div>
+              <button name="login" type="submit" value="Login" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+
+        <div ng-controller="BooksController as booksCtrl" ng-show="rootCtrl.isActive('books')">
+            <div class="container">
+            	<div class="description">
+            		<h1>Books</h1>
+            	</div>
+                </br>
+                <div class="section">
+                	<div ng-repeat="book in booksCtrl.books">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    		<div class="thumbnail">
+                    			<img ng-src="Images/{{book.image}}" class="img-responsive" alt="Responsive image">
+                    			<div class="caption" style="text-align: center;">
+                    				<h4>{{book.title}}</h4>
+                    				<p>by  {{book.author}}</p>
+                                    <h4>R {{book.costBuy}}</h4>
+                    				<button type="submit" class="btn btn-default" ng-click="booksCtrl.switchToBook(book.id)">VIEW DETAILS</button>
+                    			</div>
+                    		</div>
+                        </div>
+                	</div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-controller="SingleBookController as singleBookCtrl" ng-show="rootCtrl.isActive('singleBook')">
+            <div class="container">
+                <div class="description">
+                    <h1>Book Description</h1>
+                </div>
+                    </br>
+                    <div class="section">
+                        
+                            <div class="col-xs-12 ">
+                                <div class="media row">
+                                    <div class="col-xs-12 col-md-3">
+                                        <img class="media-object" ng-src="Images/{{singleBookCtrl.book.image}}" class="img-responsive" alt="Responsive image">
+                                    </div>
+                                </div>
+
+                                <div class="info">
+                                    <div class="col-xs-12 col-md-3">
+                                        <h4>{{singleBookCtrl.book.title}}</h4>
+                                        <p>by  {{singleBookCtrl.book.author}}</p>
+                                        <p>{{singleBookCtrl.book.fiction}}</p>
+                                        <p>{{singleBookCtrl.book.description}}</p>
+
+                                        <div class="row">
+                                            <div class = "buy col-xs-12 col-md-6">
+                                                <div class = "col-md-6">
+                                                 <h4>R {{singleBookCtrl.book.costBuy}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+
+                                    </div>
+                                </div>
+                            </div>            
+                                    
+                        </div>
+            
+            </div>
+        </div>
+
+	</body>
+</html>
